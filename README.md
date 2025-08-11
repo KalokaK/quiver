@@ -1,5 +1,5 @@
 > [!NOTE]
-> All credit goes to the work [@varkor](https://github.com/varkor) at [upstream](https://github.com/varkor/quiver). I only added a nixos build.
+> All credit goes to the work of [@varkor](https://github.com/varkor) at [upstream](https://github.com/varkor/quiver). I only added a nixos build.
 
 # quiver: a modern commutative diagram editor
 
