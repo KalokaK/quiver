@@ -1,3 +1,6 @@
+> [!NOTE]
+> All credit goes to the work [@varkor](https://github.com/varkor) at [upstream](https://github.com/varkor/quiver). I only added a nixos build.
+
 # quiver: a modern commutative diagram editor
 
 [![quiver](screenshots/title.png "quiver: a modern commutative diagram editor")](https://q.uiver.app)
@@ -105,6 +108,47 @@ in the **quiver** directory and then open `localhost:8000` in browser.
 
 If you have any other problems building **quiver**, [open an
 issue](https://github.com/varkor/quiver/issues/new) detailing the problem and I'll try to help.
+
+
+### NixOS
+
+#### With an Overlay:
+Somewhere in your config (for example if you place the source of [package.nix](package.nix) have a folder extra_packages/quiver/default.nix )
+```nix
+(final: prev: { quiver = final.callPackage ./extra_packages/quiver { }; })
+```
+
+#### Referencing this repo in your system flake
+In your system flake:
+```nix
+  inputs = {
+    ...
+    quiver = {
+      url = "github:KalokaK/quiver";
+      inputs.nixpkgs.follows = "nixpkgs"; # Optional
+    };
+  };
+
+  outputs = { ..., quiver, ... }@inputs: {
+    ...
+    nixosConfigurations.your-hostname = nixpkgs.lib.nixosSystem {
+          ...
+          modules = [
+            ...
+            ({
+              nixpkgs.overlays = [
+                (final: prev: {
+                  quiver = inputs.quiver.packages.${prev.system}.default;
+                })
+              ];
+            })
+            ...
+          ];
+    ...
+  };
+```
+
+then add in `environment.systemPackages` as you would normally.
 
 ## Thanks to
 - [S. C. Steenkamp](https://www.cl.cam.ac.uk/~scs62/), for helpful discussions regarding the
