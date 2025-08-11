@@ -127,7 +127,7 @@ QUIVER_PORT=1234 nix run
 
 #### Adding it to Your System
 ##### With an Overlay:
-Somewhere in your config (for example if you place the source of [package.nix](package.nix) have a folder extra_packages/quiver/default.nix )
+Somewhere in your config (for example if you place the source of [package.nix](package.nix) in `extra_packages/quiver/default.nix` )
 ```nix
 (final: prev: { quiver = final.callPackage ./extra_packages/quiver { }; })
 ```
