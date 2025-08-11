@@ -133,7 +133,7 @@ Somewhere in your config (for example if you place the source of [package.nix](p
 ```
 
 ##### Referencing this Repository in Your System Flake
-In your system flake:
+In your system flake you could do something like:
 ```nix
   inputs = {
     ...
@@ -149,12 +149,12 @@ In your system flake:
           ...
           modules = [
             ...
-            ({
+            ({ pkgs, ... }:
+            {
               nixpkgs.overlays = [
-                (final: prev: {
-                  quiver = inputs.quiver.packages.${prev.system}.default;
-                })
+                (final: prev: { quiver = inputs.quiver.packages.${prev.system}.default; })
               ];
+              environment.systemPackages = [ pkgs.quiver ];
             })
             ...
           ];
