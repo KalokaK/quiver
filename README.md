@@ -112,13 +112,27 @@ issue](https://github.com/varkor/quiver/issues/new) detailing the problem and I'
 
 ### NixOS
 
-#### With an Overlay:
+If you use direnv you can get a dev environment with:
+```sh
+direnv allow .
+```
+
+In any case you can run quiver and open it in your browser automatically:
+```sh
+nix run
+# Optionally:
+QUIVER_PORT=1234 nix run
+```
+
+
+#### Adding it to Your System
+##### With an Overlay:
 Somewhere in your config (for example if you place the source of [package.nix](package.nix) have a folder extra_packages/quiver/default.nix )
 ```nix
 (final: prev: { quiver = final.callPackage ./extra_packages/quiver { }; })
 ```
 
-#### Referencing this repo in your system flake
+##### Referencing this Repository in Your System Flake
 In your system flake:
 ```nix
   inputs = {
